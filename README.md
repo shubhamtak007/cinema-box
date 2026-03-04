@@ -27,6 +27,11 @@ https://cinema-box-app.vercel.app/
 To run the project locally, follow these steps:
 
 ```bash
+### Prerequisites
+
+- You must have a TMDB account to obtain an API key.
+
+### Steps
 
 # Clone the repository
 git clone https://github.com/shubhamtak007/cinema-box.git
