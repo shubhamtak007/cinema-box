@@ -1,5 +1,4 @@
-import { type Movie } from '@/interfaces/Movie';
-import { type MoviesAndShowsApiResponse } from '@/interfaces/MoviesAndShowsApiResponse';
+import { type Movie, MoviesAndShowsApiResponse } from '@/interfaces/movie.interface';
 import noImageAvailableImage from '@/public/images/no-image-available.jpg';
 
 function createMovieList(response: MoviesAndShowsApiResponse) {

@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect, useRef } from 'react';
 import { retrieveMovieList, searchMovies } from '@/services/movie-service';
 import { useSearch } from '@/contexts/search.context';
-import { type Movie } from '@/interfaces/Movie';
+import { type Movie } from '@/interfaces/movie.interface';
 import useDebounceSearchValue from '@/hooks/useDebounceSearchValue';
 import createMovieList from '@/hooks/useNewMovieList';
 

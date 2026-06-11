@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { useState, useEffect } from 'react';
 import { retrieveVideoDetailsById } from '@/services/movie-service';
 import { Spinner } from '@/components/ui/spinner';
-import { type Movie } from '@/interfaces/Movie';
+import { type Movie } from '@/interfaces/movie.interface';
 
 interface Bindings {
     movie: Movie,

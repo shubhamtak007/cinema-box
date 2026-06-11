@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { type Movie } from '@/interfaces/Movie';
+import { type Movie } from '@/interfaces/movie.interface';
 import MovieDetailsDialog from '@/components/features/movie-details-dialog';
 
 interface MovieCardProps {

@@ -1,4 +1,4 @@
-export interface Movie {
+interface Movie {
     id: number,
     name: string,
     title: string,
@@ -11,4 +11,13 @@ export interface Movie {
     poster_path: string
 }
 
+interface MoviesAndShowsApiResponse {
+    data: {
+        results: Movie[],
+        page: number,
+        total_pages: number,
+        total_results: number
+    }
+}
 
+export type { Movie, MoviesAndShowsApiResponse }
