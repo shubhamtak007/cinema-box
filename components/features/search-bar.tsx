@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input'
 import { Search, X } from 'lucide-react';
 import { useState } from 'react';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/contexts/search.context';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group';
 
 function SearchBar() {

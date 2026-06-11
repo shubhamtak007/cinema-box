@@ -1,13 +1,13 @@
 import { useCallback, useState, useEffect, useRef } from 'react';
 import { retrieveMovieList, searchMovies } from '@/services/movie-service';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/contexts/search.context';
 import { type Movie } from '@/interfaces/Movie';
 import useDebounceSearchValue from '@/hooks/useDebounceSearchValue';
 import createMovieList from '@/hooks/useNewMovieList';
 
 function useMovies() {
     const [movieList, setMovieList] = useState<Movie[]>([]);
-    const [fetchingMovieList, setFetching] = useState<boolean | null>(null);
+    const [fetchingMovieList, setFetching] = useState<boolean>(true);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
     const trackedElement = useRef<HTMLDivElement>(null);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSearch } from '@/contexts/SearchContext';
+import { useSearch } from '@/contexts/search.context';
 
 function useDebounceSearchValue(delay: number) {
     const [debouncedValue, setDebouncedValue] = useState<string | null>();

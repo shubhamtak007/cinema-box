@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-import '@/index.css';
-import '@/scss/main.scss';
+import './global.scss';
 
 export const metadata: Metadata = {
     title: 'Cinema Box',

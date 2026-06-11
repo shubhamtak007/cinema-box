@@ -1,6 +1,6 @@
 import { Spinner } from '@/components/ui/spinner';
 import useMovies from '@/hooks/useMovies';
-import MovieCard from '@/components/custom/MovieCard';
+import MovieCard from '@/components/features/movie-card';
 
 function MovieList() {
     const { fetchingMovieList, movieList, trackedElement, totalPages, pageNumber, hasMoreItems } = useMovies();
@@ -10,11 +10,11 @@ function MovieList() {
             <div className="movie-list-container">
                 {
                     (movieList && movieList.length > 0) ?
-                        movieList.map((movie) => {
+                        movieList.map((movie, index) => {
                             return (
                                 <MovieCard
                                     movie={movie}
-                                    key={movie.id}
+                                    key={`${movie.id}-${globalThis ? globalThis.crypto.randomUUID() : crypto.randomUUID()}`}
                                 ></MovieCard>
                             )
                         }) : (!fetchingMovieList) &&

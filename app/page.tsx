@@ -1,9 +1,9 @@
 'use client';
 
-import { SearchProvider } from '@/contexts/SearchContext';
-import Header from '@/components/custom/Header';
-import MovieList from '@/components/custom/MovieList';
-import SearchBar from '@/components/custom/SearchBar';
+import { SearchProvider } from '@/contexts/search.context';
+import Header from '@/components/layout/header';
+import MovieList from '@/components/features/movie-list';
+import SearchBar from '@/components/features/search-bar';
 
 export default function Page() {
     return (

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { type Movie } from '@/interfaces/Movie';
-import MovieDetailsDialog from './MovieDetailsDialog';
+import MovieDetailsDialog from '@/components/features/movie-details-dialog';
 
 interface MovieCardProps {
     movie: Movie,
-    key: number
+    key: string
 }
 
 function MovieCard({ movie }: MovieCardProps) {
