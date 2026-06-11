@@ -20,11 +20,10 @@ const useSearch = (): SearchContextType => {
     const context = useContext(SearchContext);
     if (!context) throw new Error('useSearch must be used within searchProvider');
 
-    if (!context.searchValue || context.searchValue.length == 0) {
-        context.searchValue = null;
-    }
-
-    return context;
+    return {
+        ...context,
+        searchValue: context.searchValue?.length ? context.searchValue : null,
+    };
 }
 
 export { SearchProvider, useSearch }

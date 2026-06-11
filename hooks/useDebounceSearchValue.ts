@@ -21,7 +21,7 @@ function useDebounceSearchValue(delay: number) {
         return () => {
             clearTimeout(debouncedHandler);
         }
-    }, [searchValue]);
+    }, [delay, searchValue]);
 
     return debouncedValue;
 }

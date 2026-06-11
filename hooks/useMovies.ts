@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { retrieveMovieList, searchMovies } from '@/services/movie-service';
 import { useSearch } from '@/contexts/SearchContext';
 import { type Movie } from '@/interfaces/Movie';
 import useDebounceSearchValue from '@/hooks/useDebounceSearchValue';
-import useNewMovieList from '@/hooks/useNewMovieList';
+import createMovieList from '@/hooks/useNewMovieList';
 
 function useMovies() {
     const [movieList, setMovieList] = useState<Movie[]>([]);
@@ -18,6 +18,42 @@ function useMovies() {
     const abortController = useRef<AbortController | null>(null);
     const [resetPageNumber, setResetPageNumber] = useState(0);
 
+    const resetForSearch = useCallback(() => {
+        totalPages.current = 0;
+        setMovieList([]);
+        setHasMoreItems(true);
+        setPageNumber(1);
+        setResetPageNumber(previous => previous + 1);
+    }, []);
+
+    const fetchMovieList = useCallback(async () => {
+        abortController?.current?.abort();
+        abortController.current = new AbortController();
+
+        setFetching(true);
+
+        try {
+            const response = await ((searchValue) ? searchMovies(searchValue, pageNumber, abortController.current.signal) : retrieveMovieList(pageNumber, abortController.current.signal));
+
+            if (!response || response?.data?.results.length == 0) return;
+
+            if (pageNumber == response.data.page) {
+                setMovieList((previousMovieList) => [...previousMovieList, ...createMovieList(response)]);
+            }
+
+            if (totalPages.current == 0) totalPages.current = response?.data?.total_pages;
+            if (pageNumber == totalPages.current) setHasMoreItems(false);
+
+        } catch (error: unknown) {
+            if (error instanceof Error && error.name == 'CanceledError') return;
+
+        } finally {
+            if (abortController.current?.signal.aborted == false) {
+                setFetching(false);
+            }
+        }
+    }, [pageNumber, searchValue]);
+
     useEffect(() => {
         if (isDebouncedSearchFirstChange.current == true) {
             isDebouncedSearchFirstChange.current = false;
@@ -25,15 +61,7 @@ function useMovies() {
         }
 
         resetForSearch();
-    }, [debouncedSearchValue]);
-
-    function resetForSearch() {
-        totalPages.current = 0;
-        setMovieList([]);
-        setHasMoreItems(true);
-        setPageNumber(1);
-        setResetPageNumber(previous => previous + 1);
-    }
+    }, [debouncedSearchValue, resetForSearch]);
 
     useEffect(() => {
         if (fetchingMovieList) return;
@@ -55,35 +83,7 @@ function useMovies() {
 
     useEffect(() => {
         fetchMovieList();
-    }, [pageNumber, resetPageNumber])
-
-    const fetchMovieList = async () => {
-        abortController?.current?.abort();
-        abortController.current = new AbortController();
-
-        setFetching(true);
-
-        try {
-            const response = await ((searchValue) ? searchMovies(searchValue, pageNumber, abortController.current.signal) : retrieveMovieList(pageNumber, abortController.current.signal));
-
-            if (!response || response?.data?.results.length == 0) return;
-
-            if (pageNumber == response.data.page) {
-                setMovieList((previousMovieList) => [...previousMovieList, ...useNewMovieList(response)]);
-            }
-
-            if (totalPages.current == 0) totalPages.current = response?.data?.total_pages;
-            if (pageNumber == totalPages.current) setHasMoreItems(false);
-
-        } catch (error: any) {
-            if (error.name == 'CanceledError') return;
-
-        } finally {
-            if (abortController.current?.signal.aborted == false) {
-                setFetching(false);
-            }
-        }
-    }
+    }, [fetchMovieList, resetPageNumber])
 
     return { fetchingMovieList, movieList, trackedElement, totalPages, pageNumber, hasMoreItems }
 }

@@ -8,8 +8,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import Autoplay from 'embla-carousel-autoplay';
 import { Spinner } from '@/components/ui/spinner';
 
+interface PopularMovie {
+    backdrop_path: string;
+    imageForDisplayInUi: string;
+    overview: string;
+    title: string;
+}
+
+interface PopularMovieApiResult {
+    backdrop_path: string;
+    overview: string;
+    title: string;
+}
+
 function MovieSlider() {
-    const [popularMovieList, setPopularMovieList] = useState<{ [key: string]: any }[]>([]);
+    const [popularMovieList, setPopularMovieList] = useState<PopularMovie[]>([]);
     const [fetching, setFetching] = useState(true);
 
     useEffect(() => {
@@ -17,17 +30,19 @@ function MovieSlider() {
             try {
                 const response = await retrievePopularMovieList();
 
-                const localPopularMovieList: { [key: string]: any }[] = [];
+                const localPopularMovieList: PopularMovie[] = [];
 
                 if (response && response.data && response.data.results && response.data.results.length > 0) {
-                    response.data.results.forEach((movieItem: any) => {
-                        movieItem.imageForDisplayInUi = 'https://image.tmdb.org/t/p/w1280' + movieItem.backdrop_path;
-                        localPopularMovieList.push(movieItem);
+                    response.data.results.forEach((movieItem: PopularMovieApiResult) => {
+                        localPopularMovieList.push({
+                            ...movieItem,
+                            imageForDisplayInUi: 'https://image.tmdb.org/t/p/w1280' + movieItem.backdrop_path,
+                        });
                     })
                 }
 
                 setPopularMovieList(localPopularMovieList);
-            } catch (error) {
+            } catch {
 
             } finally {
                 setFetching(false);
@@ -58,6 +73,7 @@ function MovieSlider() {
                                                 <div className="movie-slide rounded-[13px_13px_0px_0px]">
                                                     <img src={movieItem.imageForDisplayInUi}
                                                         className="w-full rounded-[13px_13px_0px_0px] h-[450px] object-cover"
+                                                        alt={movieItem.title}
                                                     />
 
                                                     <div className="pl-[8px] pt-[8px] font-bold text-[24px]">

@@ -2,7 +2,7 @@ import { type Movie } from '@/interfaces/Movie';
 import { type MoviesAndShowsApiResponse } from '@/interfaces/MoviesAndShowsApiResponse';
 import noImageAvailableImage from '@/assets/images/no-image-available.jpg';
 
-function useNewMovieList(response: MoviesAndShowsApiResponse) {
+function createMovieList(response: MoviesAndShowsApiResponse) {
     const newMovieList = response?.data?.results?.map((movieItem: Movie) => {
         const releaseDateString = movieItem.release_date ? movieItem.release_date :
             movieItem.first_air_date ? movieItem.first_air_date : null;
@@ -12,7 +12,7 @@ function useNewMovieList(response: MoviesAndShowsApiResponse) {
         return {
             ...movieItem,
             releaseYear: releaseDate ? releaseDate.getFullYear() : null,
-            imageUrl: movieItem.poster_path ? `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : noImageAvailableImage
+            imageUrl: movieItem.poster_path ? `https://image.tmdb.org/t/p/original${movieItem.poster_path}` : noImageAvailableImage.src
         }
     })
 
@@ -20,4 +20,4 @@ function useNewMovieList(response: MoviesAndShowsApiResponse) {
     return newMovieList;
 }
 
-export default useNewMovieList;
+export default createMovieList;

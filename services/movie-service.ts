@@ -4,7 +4,7 @@ interface QueryParams {
     [key: string]: unknown;
 }
 
-const token = import.meta.env.VITE_API_ACCESS_TOKEN;
+const token = process.env.NEXT_PUBLIC_API_ACCESS_TOKEN;
 
 const apiProperties = axios.create({
     baseURL: 'https://api.themoviedb.org',

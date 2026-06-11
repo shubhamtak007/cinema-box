@@ -30,7 +30,7 @@ function MovieDetailsDialog({ movie, isDialogOpen, setIsDialogOpenValue }: Bindi
                 localVideoDetails.embeddedUrl = 'https://www.youtube.com/embed/' + response.data.results[0].key;
                 setVideoDetails(localVideoDetails);
             }
-        } catch (error) {
+        } catch {
 
         } finally {
             setFetching(false);
