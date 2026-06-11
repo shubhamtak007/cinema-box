@@ -10,7 +10,7 @@ https://cinema-box-app.vercel.app/
 ---
 
 ## Screenshots
-![Screenshots](./assets/images/screenshot-1.png)
+![Screenshots](./public/images/screenshot-1.png)
 
 ---
 

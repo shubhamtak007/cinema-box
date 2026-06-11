@@ -6,6 +6,9 @@ import '@/scss/main.scss';
 export const metadata: Metadata = {
     title: 'Cinema Box',
     description: 'Movie and TV discovery app',
+    icons: {
+        icon: '/box.svg'
+    }
 };
 
 export default function RootLayout({

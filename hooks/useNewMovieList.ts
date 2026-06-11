@@ -1,6 +1,6 @@
 import { type Movie } from '@/interfaces/Movie';
 import { type MoviesAndShowsApiResponse } from '@/interfaces/MoviesAndShowsApiResponse';
-import noImageAvailableImage from '@/assets/images/no-image-available.jpg';
+import noImageAvailableImage from '@/public/images/no-image-available.jpg';
 
 function createMovieList(response: MoviesAndShowsApiResponse) {
     const newMovieList = response?.data?.results?.map((movieItem: Movie) => {
